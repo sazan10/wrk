@@ -70,7 +70,7 @@ jobs:
           
           while IFS= read -r -d '' file; do
               bc_file="${file%.c}.bc"
-              if clang -I "$include_dirs" -emit-llvm -c -g -O0 -Xclang -disable-O0-optnone "$file" -o "$bc_file" 2>/dev/null; then
+              if clang-13 -I "$include_dirs" -emit-llvm -c -g -O0 -Xclang -disable-O0-optnone "$file" -o "$bc_file" 2>/dev/null; then
                   if ! /usr/lib/llvm-13/bin/llvm-nm "$PWD/$bc_file" | grep -q " T main"; then
                       rm "$bc_file"
                   else
